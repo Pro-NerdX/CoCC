@@ -1,34 +1,40 @@
 
 module sqrt (
-    input[7:0] in,
-    output[7:0] out
+    input  wire[7:0] in,
+    output wire[7:0] out
 );
-    reg[3:0] temp = 4'b0001;
+    assign out =
+        (in >= (15 * 15)) ? 15 :
+        (in >= (14 * 14)) ? 14 :
+        (in >= (13 * 13)) ? 13 :
+        (in >= (12 * 12)) ? 12 :
+        (in >= (11 * 11)) ? 11 :
+        (in >= (10 * 10)) ? 10 :
+        (in >= (9  *  9)) ? 9  :
+        (in >= (8  *  8)) ? 8  :
+        (in >= (7  *  7)) ? 7  :
+        (in >= (6  *  6)) ? 6  :
+        (in >= (5  *  5)) ? 5  :
+        (in >= (4  *  4)) ? 4  :
+        (in >= (3  *  3)) ? 3  :
+        (in >= (2  *  2)) ? 2  :
+        (in >= (1  *  1)) ? 1  :
+        0;
 
-    always @(*) begin
-        if ((temp * temp) == in) begin
-            out <= temp;
-        end else begin
-            if (temp == 4'b1111) begin
-                out <= 4'bzzzz;
-            end else begin
-                temp <= temp + 1'b1;
-            end
-        end
-    end
+
 endmodule
 
 module mul (
-    input[7:0] in_1,
-    input[7:0] in_2,
+    input[7:0] in_a,
+    input[7:0] in_b,
 
     output[7:0] out_hi,
     output[7:0] out_lo,
 
     output carry
 );
-    wire[15:0] res;
+    wire[16:0] res;
 
-    assign res = in_1 * in_2;
-    assign {carry, out_hi, out_lo} = {|res[15:8], res[15:8], res[7:0]};
+    assign res = in_a * in_b;
+    assign {carry, out_hi, out_lo} = {res[16], res[15:8], res[7:0]};
 endmodule

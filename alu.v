@@ -20,8 +20,8 @@ module ALU (
     wire[7:0] out_lo;
     wire carry;
     mul mul0(
-        .in_1(in_a),
-        .in_2(in_b),
+        .in_a(in_a),
+        .in_b(in_b),
         .out_hi(out_hi),
         .out_lo(out_lo),
         .carry(carry)
@@ -29,7 +29,7 @@ module ALU (
 
     wire[7:0] out_sqrt;
     sqrt sqrt0(
-        .in(in_1),
+        .in(in_a),
         .out(out_sqrt)
     );
 
@@ -46,11 +46,11 @@ module ALU (
                 4'b0111: {flag_carry, r_out} <= {1'b0, in_a ^ in_b};         // ALU_XOR
 
                 // Erweiterungen
-                4'b1000: {flag_carry, r_out} <= in_1 << in_2;                           // ALU_SHL
-                4'b1001: {flag_carry, r_out} <= in_1 >> in_2;                           // ALU_SHR
-                4'b1010: {flag_carry, r_out} <= (in_1 << in_2) | (in_1 >> (8 - in_2));  // ALU_ROL TODO: Check for correctness
-                4'b1011: {flag_carry, r_out} <= (in_1 >> in_2) | (in_1 << (8 - in_2));  // ALU_ROR TODO: Check for correctness
-                4'b1100: {flag_carry, r_out} <= {1'b0, ~in_1};                          // ALU_NOT
+                4'b1000: {flag_carry, r_out} <= {1'b0, in_a << in_b};                           // ALU_SHL
+                4'b1001: {flag_carry, r_out} <= {1'b0, in_a >> in_b};                           // ALU_SHR
+                4'b1010: {flag_carry, r_out} <= {1'b0, in_a[6:0],in_a[7]};  // ALU_ROL fixed: rotate left by 1
+                4'b1011: {flag_carry, r_out} <= {1'b0, in_a[0], in_a[7:1]};  // ALU_ROR TODO: Check for correctness
+                4'b1100: {flag_carry, r_out} <= {1'b0, ~in_a};                          // ALU_NOT
 
                 4'b1101: {flag_carry, r_out} <= {carry, out_lo};  // ALU_MLO
                 4'b1110: {flag_carry, r_out} <= {carry, out_hi};  // ALU_MHI
