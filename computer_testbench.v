@@ -29,7 +29,7 @@ module top_level ();
             cpu.state
         );
 
-        #100000 $finish; // Stop simulation after 50 time units
+        #10000 $finish; // Stop simulation after 50 time units
     end
 
 endmodule
