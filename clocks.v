@@ -12,14 +12,14 @@ module clocks(
 
     always @(posedge clk) begin
         if (~halt & ~reset) begin
-            {cycle_clk, ram_clk, internal_clk} <= cnt;
+            {cycle_clock, ram_clock, internal_clock} <= cnt;
             case (cnt)
                 3'b100 : cnt <= 3'b010;
                 3'b010 : cnt <= 3'b001;
                 3'b001 : cnt <= 3'b100;
             endcase
         end else begin
-            {cycle_clk, ram_clk, internal_clk} <= 3'b0;
+            {cycle_clock, ram_clock, internal_clock} <= 3'b0;
         end
     end
 endmodule
