@@ -12,7 +12,7 @@ module top_level ();
 
     initial clk = 0; // Initialize clock
 
-    always #1 clk = ~clk; // Toggle clock every 5 time units
+    always #1 clk = ~clk; // Toggle clock every 1 time units
 
     initial begin
 
