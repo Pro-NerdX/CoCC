@@ -30,23 +30,29 @@
 `define STATE_MOUT_STORE    8'h12
 `define STATE_ROUT_STORE    8'h13
 
-/* Patterns */
-`define PATTERN_NOP     8'b00_000_000
-`define PATTERN_HLT     8'b00_000_001
-`define PATTERN_CALL    8'b00_000_010
-`define PATTERN_RET     8'b00_000_011
-`define PATTERN_CMP     8'b00_000_100
-`define PATTERN_ALU     8'b00_010_???
-`define PATTERN_LDI     8'b01_000_???
-`define PATTERN_LDX     8'b01_001_???
-`define PATTERN_STX     8'b01_010_???
-`define PATTERN_PUSH    8'b01_011_???
-`define PATTERN_POP     8'b01_100_???
-`define PATTERN_JMP     8'b01_101_???
-`define PATTERN_MOV     8'b01_???_???
-// IO-Schnittstelle
-`define PATTERN_MOUT    8'b00_000_101
-`define PATTERN_ROUT    8'b01_110_???
+/* Patterns (from sample solution, as exercise contained mistakes) */
+`define PATTERN_NOP  8'b00_000_000
+`define PATTERN_HLT  8'b00_000_001
+`define PATTERN_CALL 8'b00_000_010
+`define PATTERN_RET  8'b00_000_011
+`define PATTERN_CMP  8'b00_000_100
+`define PATTERN_MOUT 8'b00_000_101				// GPIO
+`define PATTERN_MIN  8'b00_000_110				// GPIO (old)
+
+`define PATTERN_ALU  8'b00_01?_??? // was incorrect in the exercise
+
+`define PATTERN_LDI  8'b01_000_???
+`define PATTERN_LDX  8'b01_001_???	
+`define PATTERN_STX  8'b01_010_???	
+`define PATTERN_LDA  8'b00_100_???
+`define PATTERN_STA  8'b00_101_???
+`define PATTERN_PUSH 8'b01_011_???
+`define PATTERN_POP  8'b01_100_???
+`define PATTERN_JMP  8'b01_101_???
+`define PATTERN_ROUT 8'b01_110_???				// GPIO
+`define PATTERN_RIN  8'b01_111_???				// GPIO (old)
+
+`define PATTERN_MOV  8'b10_???_???
 
 /* Opcodes */
 `define OP_NOP  8'b00_000_000
@@ -76,15 +82,23 @@
 `define OP_SQRT 8'b01_111_100
 
 /* ALU-Modes */
-`define ALU_ADD 3'b0000
-`define ALU_ADC 3'b0001
-`define ALU_SUB 3'b0010
-`define ALU_INC 3'b0011
-`define ALU_DEC 3'b0100
-`define ALU_AND 3'b0101
-`define ALU_OR  3'b0110
-`define ALU_XOR 3'b0111
-// Changes: Most significant 0-bit has been added.
+`define ALU_ADD  4'b0000
+`define ALU_ADC  4'b0001
+`define ALU_SUB  4'b0010
+`define ALU_INC  4'b0011
+`define ALU_DEC  4'b0100
+`define ALU_AND  4'b0101
+`define ALU_OR   4'b0110
+`define ALU_XOR  4'b0111
+
+`define ALU_SHL  4'b1000
+`define ALU_SHR  4'b1001
+`define ALU_ROL  4'b1010
+`define ALU_ROR  4'b1011
+`define ALU_NOT  4'b1100
+`define ALU_MLO  4'b1101
+`define ALU_MHI  4'b1110
+`define ALU_SQRT 4'b1111
 
 /* Jump-Modes */
 `define JMP_JMP 3'b000

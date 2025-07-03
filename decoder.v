@@ -9,7 +9,7 @@ module decoder (
     output reg[7:0] opcode,
     output reg[2:0] iaddr,
     output reg[2:0] oaddr,
-    output reg[2:0] alu_mode
+    output reg[3:0] alu_mode
 );
     assign operand_1 = instruction[5:3];
     assign operand_2 = instruction[2:0];
@@ -38,9 +38,9 @@ module decoder (
     always @(*) begin
         case (opcode)
             `OP_CMP: alu_mode <= `ALU_SUB;
-            `OP_ALU: alu_mode <= {operand_2[2], operand_1}; // Erweiterung: alu_mode has 4 bits now
+            `OP_ALU: alu_mode <= {operand_1[0], operand_2[2:0]}; // Erweiterung: alu_mode has 4 bits now
 
-            default: alu_mode <= 3'bx;
+            default: alu_mode <= 4'bx;
         endcase
     end
 
