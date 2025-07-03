@@ -75,9 +75,9 @@ module computer (
     wire[2:0] operand_1;
     wire[2:0] operand_2;
     wire[7:0] opcode;
-    output wire[2:0] iaddr;
-    output wire[2:0] oaddr;
-    output wire[3:0] alu_mode;
+    wire[2:0] iaddr;
+    wire[2:0] oaddr;
+    wire[3:0] alu_mode;
 
     // Decoder
     decoder Decoder(
