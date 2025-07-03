@@ -1,26 +1,25 @@
 
-module clocks (
-    input wire clk,
-    input wire halt,
-
-    output reg cycle_clock = 0,
-    output reg ram_clock = 0,
-    output reg internal_clock = 0
+module clocks(
+    input  wire clk,
+    input  wire halt,
+    input  wire reset,
+    output reg  cycle_clk = 0,
+    output reg  ram_clk = 0,
+    output reg  internal_clk = 0
 );
-    /* MAJOR CHANGE: Changed to 2-bit reg! */
-    reg[1:0] cnt = 2'b00;
 
-    /* MAJOR CHANGE: See upper major change! */
+    reg[2:0] cnt = 'b100;
+
     always @(posedge clk) begin
-        cycle_clock <=      halt ? cycle_clock    : (cnt == 2'b00);
-        ram_clock   <=      halt ? ram_clock      : (cnt == 2'b01);
-        internal_clock <= halt ? internal_clock   : (cnt == 2'b10);
-
+    if (~halt & ~reset) begin
+        {cycle_clk, ram_clk, internal_clk} <= cnt;
         case (cnt)
-            2'b00: cnt <= 2'b01;
-            2'b01: cnt <= 2'b10;
-            2'b10: cnt <= 2'b00;
-            default: cnt <= 2'b00;
+        'b100 : cnt <= 'b010;
+        'b010 : cnt <= 'b001;
+        'b001 : cnt <= 'b100;
         endcase
+    end else begin
+        {cycle_clk, ram_clk, internal_clk} <= 3'b0;
+    end
     end
 endmodule
