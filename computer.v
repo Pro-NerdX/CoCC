@@ -62,7 +62,7 @@ module computer (
 
     // Stack Pointer
     counter SP(
-        .clk(reset | (c_si & internal_clk)),
+        .clk(/*reset | */(c_si & internal_clk)),
         .out(data_bus),
         .down(c_sd),
         .reset(1'b0),
@@ -139,14 +139,15 @@ module computer (
     );
 
     wire c_go, c_da;
+    wire flag_zero, flag_carry;
 
     // Signal-Controller
     control Signal_Controller(
-        .state(),
-        .operand_1(),
-        .operand_2(),
-        .flag_zero(),
-        .flag_carry(),
+        .state(state),
+        .operand_1(operand_1),
+        .operand_2(operand_2),
+        .flag_zero(flag_zero),
+        .flag_carry(flag_carry),
 
         .c_ii(c_ii), .c_ci(c_ci), .c_co(c_co), .c_cs(c_cs), .c_rfi(c_rfi), .c_rfo(c_rfo), .c_eo(c_eo), .c_ee(c_ee), .c_mi(c_mi), .c_ro(c_ro), .c_ri(c_ri), .c_so(c_so), .c_sd(c_sd), .c_si(c_si), .c_halt(c_halt),
         // IO-Schnittstelle
@@ -161,5 +162,25 @@ module computer (
         .en(c_go),
         .in(data_bus),
         .out(oport)
+    );
+
+    // Register MAR
+    register MAR(
+        .clk(internal_clk),
+        .in(data_bus),
+        .en(c_mi),
+        .out(addr_bus)
+    );
+
+    // ALU
+    ALU alu0(
+        .in_a(reg_a),
+        .in_b(reg_b),
+        .mode(alu_mode),
+        .ee(c_ee), .eo(c_eo),
+
+        .out(data_bus),
+        .flag_zero(flag_zero),
+        .flag_carry(flag_carry)
     );
 endmodule
