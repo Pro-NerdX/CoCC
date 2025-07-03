@@ -15,6 +15,8 @@ module top_level ();
     always #1 clk = ~clk; // Toggle clock every 1 time units
 
     initial begin
+        $dumpfile("computer.vcd");
+        $dumpvars();
 
         $monitor(
             "Time: %0t, instr: %b, operand1: %b, operand2: %b, opcode: %b, iaddr: %b, oaddr: %b, alu_mode: %b, state: %b",
