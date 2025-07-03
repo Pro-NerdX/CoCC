@@ -30,10 +30,12 @@ module regblock (
     reg [7:0] registers[0:7];
 
     assign odata = oe ? registers[oaddr] : 8'bz;
+    assign rega = registers[0];
+    assign regb = registers[1];
 
     always @(posedge clk) begin
-        registers[iaddr] <= idata;
-        rega <= registers[0];
-        regb <= registers[1];
+        if (we) begin
+            registers[iaddr] <= idata;
+        end
     end
 endmodule

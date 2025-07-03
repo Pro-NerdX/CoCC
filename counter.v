@@ -33,9 +33,9 @@ module counter (
         end else if (set) begin
             r_out <= in;
         end else if (down) begin
-            r_out <= counter - 1'b1;
+            r_out <= r_out - 1'b1;
         end else begin
-            r_out <= counter + 1'b1;
+            r_out <= r_out + 1'b1;
         end
     end
 endmodule

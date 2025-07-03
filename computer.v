@@ -9,9 +9,9 @@ module computer (
 
     wire[7:0] data_bus;
     assign data_bus = 8'bz;
-    reg internal_clk;
-    reg cycle_clk;
-    reg ram_clk;
+    wire internal_clk;
+    wire cycle_clk;
+    wire ram_clk;
     wire[7:0] instruction;
     wire c_ii;
 
@@ -74,10 +74,10 @@ module computer (
 
     wire[2:0] operand_1;
     wire[2:0] operand_2;
-    reg[7:0] opcode;
-    output reg[2:0] iaddr;
-    output reg[2:0] oaddr;
-    output reg[2:0] alu_mode;
+    wire[7:0] opcode;
+    output wire[2:0] iaddr;
+    output wire[2:0] oaddr;
+    output wire[3:0] alu_mode;
 
     // Decoder
     decoder Decoder(
@@ -92,7 +92,7 @@ module computer (
         .alu_mode(alu_mode)
     );
 
-    reg[7:0] state = `STATE_NEXT;
+    wire[7:0] state = `STATE_NEXT;
 
     // Finite State Machine
     FSM FSM0(
