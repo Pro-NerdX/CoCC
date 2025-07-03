@@ -164,14 +164,6 @@ module computer (
         .out(oport)
     );
 
-    // Register MAR
-    register MAR(
-        .clk(internal_clk),
-        .in(data_bus),
-        .en(c_mi),
-        .out(addr_bus)
-    );
-
     // ALU
     ALU alu0(
         .in_a(reg_a),
