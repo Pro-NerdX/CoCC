@@ -19,7 +19,7 @@ module top_level ();
         $dumpvars();
 
         $monitor(
-            "Time: %0t, instr: %b, operand1: %b, operand2: %b, opcode: %b, iaddr: %b, oaddr: %b, alu_mode: %b, state: %b",
+            "Time: %0t, instr: %b, operand1: %b, operand2: %b, opcode: %b, iaddr: %b, oaddr: %b, alu_mode: %b, state: %b, cycle: %b",
             $time,
             cpu.instruction,
             cpu.operand_1,
@@ -28,7 +28,8 @@ module top_level ();
             cpu.iaddr,
             cpu.oaddr,
             cpu.alu_mode,
-            cpu.state
+            cpu.state,
+            cpu.FSM0.cycle
         );
 
         #10000 $finish; // Stop simulation after 50 time units
