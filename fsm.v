@@ -12,7 +12,7 @@ module FSM (
     reg[3:0] cycle;
 
     always @(negedge clk) begin
-        if (reset) begin
+        if (reset_cycle) begin
             cycle <= 4'b0;
         end else begin
             cycle <= cycle + 1'b1;
