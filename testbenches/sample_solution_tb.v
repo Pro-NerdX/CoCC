@@ -8,32 +8,27 @@ module top_level_tb;
 
   // Machine
   reg reset = 1;
-  reg[7:0]  iport = 8'h0;
   wire[7:0] oport;
   computer m5(
     .clk(clk),
     .reset(reset),
-    .iport(iport),
     .oport(oport)
   );
 
-  // iport test
-  always 
-    #630 iport = iport + 1;
     
   always @(posedge m5.c_halt) begin
     $display("============================================");
     $display("CPU halted normally.");
     $display(
       "REGISTERS: A: %h B: %h C: %h D: %h E: %h F: %h G: %h H: %h\nFLAGS:     CF: %b ZF: %b",
-      m5.cpu_reg0.registers[0],
-      m5.cpu_reg0.registers[1],
-      m5.cpu_reg0.registers[2],
-      m5.cpu_reg0.registers[3],
-      m5.cpu_reg0.registers[4],
-      m5.cpu_reg0.registers[5],
-      m5.cpu_reg0.registers[6],
-      m5.cpu_reg0.registers[7],
+      m5.CPU_Register.registers[0],
+      m5.CPU_Register.registers[1],
+      m5.CPU_Register.registers[2],
+      m5.CPU_Register.registers[3],
+      m5.CPU_Register.registers[4],
+      m5.CPU_Register.registers[5],
+      m5.CPU_Register.registers[6],
+      m5.CPU_Register.registers[7],
       m5.flag_carry,
       m5.flag_zero
     );
@@ -44,8 +39,6 @@ module top_level_tb;
     @(negedge m5.internal_clk) begin
       if (m5.c_go)
         $display("%8d OUTPUT: %3d (0x%2h 0b%8b)", $time, oport, oport, oport);
-      if (m5.c_gi)
-        $display("%8d INPUT:  %3d (0x%2h 0b%8b)", $time, iport, iport, iport);
     end
 
 /*
@@ -61,7 +54,7 @@ module top_level_tb;
 
   always @* begin
  //            1 2  3  4  5  6  7   8  9  10 11 12 13 14 15 16 17 18 19  20 21  22 23 24 25 26 27 28 30
-    $display("%0d %b %b %b %b %b %0d %b %b %b %b %b %b %b %b %b %b %b %0d %b %0d %b %b %b %b %b %b %b %b Sig", 
+    $display("%0d %b %b %b %b %b %0d %b %b %b %b %b %b %b %b %b` %b %0d %b %0d %b %b %b %b %b %b %b %b Sig", 
       $time, 			// 1
       { 			// 2
         m5.internal_clk,
@@ -75,8 +68,8 @@ module top_level_tb;
         m5.c_ri,
         m5.c_ro
       },
-      m5.fsm0.reset_cycle,	// 6
-      m5.fsm0.cycle,		// 7
+      m5.FSM0.reset_cycle,	// 6
+      m5.FSM0.cycle,		// 7
       {				// 8
         m5.c_ci,
         m5.c_co,
@@ -90,8 +83,8 @@ module top_level_tb;
       m5.oaddr,			// 11
       m5.c_ii,			// 12
       m5.instruction,		// 13
-      m5.rega_out,		// 14
-      m5.regb_out,		// 15
+      m5.reg_a,		// 14
+      m5.reg_b,		// 15
       m5.c_mi,			// 16
       {				// 17
         m5.c_si,		
@@ -114,14 +107,12 @@ module top_level_tb;
         m5.c_halt
       },
       {				// 24
-        m5.c_gi,
         m5.c_go
       },
-      m5.iport,			// 25
       m5.oport,			// 26
-      m5.pc_cnt0.r_out,		// 27
-      m5.sp_cnt0.r_out,		// 28
-      m5.cpu_reg0.registers[7]	// 29
+      m5.PC.r_out,		// 27
+      m5.SP.r_out,		// 28
+      m5.CPU_Register.registers[7]	// 29
     );
   end
 
@@ -142,7 +133,6 @@ module top_level_tb;
       m5.instruction,	
       m5.opcode,
       m5.c_gi,
-      iport,
       m5.c_go,
       oport,
       {
@@ -157,9 +147,8 @@ module top_level_tb;
 */
 
   initial begin
-//#0      m5.cpu_reg0.registers[0] = 8'ha5;
-//        m5.cpu_reg0.registers[1] = 5;
+//#0      m5.CPU_Register.registers[0] = 8'ha5;
+//        m5.CPU_Register.registers[1] = 5;
     @(negedge clk) reset = 0;
-//    #100 iport = 8'ha5;
   end
 endmodule
