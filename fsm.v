@@ -41,6 +41,9 @@ module FSM (
                 // IO-Schnittstelle
                 `OP_MOUT: state <= `STATE_FETCH_PC;
                 `OP_ROUT: state <= `STATE_ROUT_STORE;
+                // Dynamische Adressierung
+                `OP_LDA:  state <= `STATE_SET_MAR;
+                `OP_STA:  state <= `STATE_SET_MAR;
             endcase
 
             `T3: case (opcode)
@@ -57,6 +60,9 @@ module FSM (
                 `OP_RET:  state <= `STATE_FETCH_SP;
                 // IO-Schnittstelle
                 `OP_MOUT: state <= `STATE_LOAD_ADDR;
+                // Dynamische Adressierung
+                `OP_LDA:  state <= `STATE_SET_REG;
+                `OP_STA:  state <= `STATE_SET_MEM;
             endcase
 
             `T4: case (opcode)
@@ -72,6 +78,9 @@ module FSM (
                 `OP_RET:  state <= `STATE_RET;
                 // IO-Schnittstelle
                 `OP_MOUT: state <= `STATE_MOUT_STORE;
+                // Dynamische Adressierung
+                `OP_LDA:  state <= `STATE_NEXT;
+                `OP_STA:  state <= `STATE_NEXT;
             endcase
 
             `T5: case (opcode)

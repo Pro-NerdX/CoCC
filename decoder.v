@@ -9,7 +9,9 @@ module decoder (
     output reg[7:0] opcode,
     output reg[2:0] iaddr,
     output reg[2:0] oaddr,
-    output reg[3:0] alu_mode
+    output reg[3:0] alu_mode,
+
+    input wire c_da
 );
     assign operand_1 = instruction[5:3];
     assign operand_2 = instruction[2:0];
@@ -30,6 +32,9 @@ module decoder (
             `PATTERN_POP:  opcode <= `OP_POP;
             `PATTERN_JMP:  opcode <= `OP_JMP;
             `PATTERN_MOV:  opcode <= `OP_MOV;
+            // Dynamische Adressierung
+            `PATTERN_LDA:  opcode <= `OP_LDA;
+            `PATTERN_STA:  opcode <= `OP_STA;
             default: opcode <= instruction;
         endcase
     end
@@ -53,6 +58,9 @@ module decoder (
             `OP_ALU:  iaddr <= `REG_A;
             `OP_POP:  iaddr <= operand_2;
             `OP_CALL: iaddr <= `REG_H;
+            // Dynamische Adressierung
+            `OP_LDA:  iaddr <= operand_2;
+            // Why not: `OP_STA:  iaddr <= `REG_A; TODO
 
             default: iaddr <= 3'bx; 
         endcase
@@ -65,7 +73,10 @@ module decoder (
             `OP_STX:  oaddr <= operand_2;
             `OP_PUSH: oaddr <= operand_2;
             `OP_CALL: oaddr <= `REG_H;
-            
+            // Dynamische Adressierung
+            `OP_STA:  oaddr <= operand_2;
+            `OP_LDA:  oaddr <= c_da ? `REG_A : operand_2;
+
             default: oaddr <= 3'bx;
         endcase
     end

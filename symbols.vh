@@ -29,6 +29,10 @@
 // IO-Schnittstelle
 `define STATE_MOUT_STORE    8'h12
 `define STATE_ROUT_STORE    8'h13
+// Dyanamische Adressierung
+`define STATE_SET_MAR	 	8'h14
+`define STATE_SET_REG	 	8'h15
+`define STATE_SET_MEM	 	8'h16
 
 /* Patterns (from sample solution, as exercise contained an error) */
 `define PATTERN_NOP  8'b00_000_000
@@ -44,8 +48,8 @@
 `define PATTERN_LDI  8'b01_000_???
 `define PATTERN_LDX  8'b01_001_???	
 `define PATTERN_STX  8'b01_010_???	
-`define PATTERN_LDA  8'b00_100_???
-`define PATTERN_STA  8'b00_101_???
+`define PATTERN_LDA  8'b00_100_???				// CoCC mit indirekter (dynamischer Adressierung)
+`define PATTERN_STA  8'b00_101_???				// CoCC mit indirekter (dynamischer Adressierung
 `define PATTERN_PUSH 8'b01_011_???
 `define PATTERN_POP  8'b01_100_???
 `define PATTERN_JMP  8'b01_101_???
@@ -80,6 +84,9 @@
 `define OP_MLO  8'b01_101_100
 `define OP_MHI  8'b01_110_100
 `define OP_SQRT 8'b01_111_100
+// Dynamische Adressierung
+`define OP_LDA  8'b00_010_000
+`define OP_STA  8'b00_101_000
 
 /* ALU-Modes */
 `define ALU_ADD  4'b0000

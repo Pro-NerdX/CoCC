@@ -9,8 +9,13 @@ module control (
 
     output wire c_ii, c_ci, c_co, c_cs, c_rfi, c_rfo, c_eo, c_ee, c_mi, c_ro, c_ri, c_so, c_sd, c_si, c_halt,
     // IO-Schnittstelle
-    output wire c_go
+    output wire c_go,
+    // Dynamische Adressierung
+    output wire c_da
 );
+    // Dynamische Adressierung
+    assign c_da = (state == `STATE_SET_MAR);
+
     // jump allowed
     assign ja = (operand_2 == `JMP_JMP) |
                 ((operand_2 == `JMP_JC)  &  flag_carry) |

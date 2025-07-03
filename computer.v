@@ -89,7 +89,9 @@ module computer (
         .opcode(opcode),
         .iaddr(iaddr),
         .oaddr(oaddr),
-        .alu_mode(alu_mode)
+        .alu_mode(alu_mode),
+
+        .c_da(c_da)
     );
 
     wire[7:0] state = `STATE_NEXT;
@@ -136,7 +138,7 @@ module computer (
         .regb(reg_b)
     );
 
-    wire c_go;
+    wire c_go, c_da;
 
     // Signal-Controller
     control Signal_Controller(
@@ -148,7 +150,9 @@ module computer (
 
         .c_ii(c_ii), .c_ci(c_ci), .c_co(c_co), .c_cs(c_cs), .c_rfi(c_rfi), .c_rfo(c_rfo), .c_eo(c_eo), .c_ee(c_ee), .c_mi(c_mi), .c_ro(c_ro), .c_ri(c_ri), .c_so(c_so), .c_sd(c_sd), .c_si(c_si), .c_halt(c_halt),
         // IO-Schnittstelle
-        .c_go(c_go)
+        .c_go(c_go),
+        // Dynamische Adressierung
+        .c_da(c_da)
     );
 
     // IO-Schnittstelle

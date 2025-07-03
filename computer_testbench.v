@@ -12,11 +12,9 @@ module top_level ();
 
     initial clk = 0; // Initialize clock
 
-    always #5 clk = ~clk; // Toggle clock every 5 time units
+    always #1 clk = ~clk; // Toggle clock every 5 time units
 
     initial begin
-        reset = 1;
-        #10 reset = 0; // Release reset after 10 time units
 
         $monitor(
             "Time: %0t, instr: %b, operand1: %b, operand2: %b, opcode: %b, iaddr: %b, oaddr: %b, alu_mode: %b, state: %b",
@@ -31,7 +29,7 @@ module top_level ();
             cpu.state
         );
 
-        #50 $finish; // Stop simulation after 50 time units
+        #100000 $finish; // Stop simulation after 50 time units
     end
 
 endmodule
