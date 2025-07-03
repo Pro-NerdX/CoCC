@@ -8,18 +8,18 @@ module clocks(
     output reg  internal_clock = 0
 );
 
-    reg[2:0] cnt = 'b100;
+    reg[2:0] cnt = 3'b100;
 
     always @(posedge clk) begin
-    if (~halt & ~reset) begin
-        {cycle_clk, ram_clk, internal_clk} <= cnt;
-        case (cnt)
-        'b100 : cnt <= 'b010;
-        'b010 : cnt <= 'b001;
-        'b001 : cnt <= 'b100;
-        endcase
-    end else begin
-        {cycle_clk, ram_clk, internal_clk} <= 3'b0;
-    end
+        if (~halt & ~reset) begin
+            {cycle_clk, ram_clk, internal_clk} <= cnt;
+            case (cnt)
+                3'b100 : cnt <= 3'b010;
+                3'b010 : cnt <= 3'b001;
+                3'b001 : cnt <= 3'b100;
+            endcase
+        end else begin
+            {cycle_clk, ram_clk, internal_clk} <= 3'b0;
+        end
     end
 endmodule
