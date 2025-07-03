@@ -30,7 +30,7 @@
 `define STATE_MOUT_STORE    8'h12
 `define STATE_ROUT_STORE    8'h13
 
-/* Patterns (from sample solution, as exercise contained mistakes) */
+/* Patterns (from sample solution, as exercise contained an error) */
 `define PATTERN_NOP  8'b00_000_000
 `define PATTERN_HLT  8'b00_000_001
 `define PATTERN_CALL 8'b00_000_010
