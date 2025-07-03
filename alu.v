@@ -1,5 +1,5 @@
 
-/* Neutronal Network: 4-275 */
+/* Neuronal Network: 4-275 */
 module ALU (
     input wire [7:0] in_a,
     input wire [7:0] in_b,
