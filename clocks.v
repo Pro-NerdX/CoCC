@@ -3,9 +3,9 @@ module clocks(
     input  wire clk,
     input  wire halt,
     input  wire reset,
-    output reg  cycle_clk = 0,
-    output reg  ram_clk = 0,
-    output reg  internal_clk = 0
+    output reg  cycle_clock = 0,
+    output reg  ram_clock = 0,
+    output reg  internal_clock = 0
 );
 
     reg[2:0] cnt = 'b100;
