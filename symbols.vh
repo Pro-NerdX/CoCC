@@ -67,10 +67,10 @@
 `define OP_ALU  8'b00_010_000
 `define OP_LDI  8'b01_000_000
 `define OP_LDX  8'b01_001_000
-`define OP_STX  8'b01_001_000
+`define OP_STX  8'b01_010_000
 `define OP_PUSH 8'b01_011_000
 `define OP_POP  8'b01_100_000
-`define OP_JMP  8'b01_011_000
+`define OP_JMP  8'b01_101_000
 `define OP_MOV  8'b10_000_000
 // IO-Schnittstelle
 `define OP_MOUT 8'b00_000_101

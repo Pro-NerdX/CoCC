@@ -7,7 +7,7 @@ module top_level_tb;
     #20 clk = ~clk;
 
   // Machine
-  reg reset = 1;
+  reg reset = 1'b0;
   wire[7:0] oport;
   computer m5(
     .clk(clk),

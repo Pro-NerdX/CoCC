@@ -1,7 +1,7 @@
 
 module top_level ();
     reg clk = 1;
-    reg reset = 1;
+    reg reset = 1'b0;
     wire[7:0] oport;
 
     always

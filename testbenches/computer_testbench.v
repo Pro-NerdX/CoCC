@@ -1,7 +1,7 @@
 module top_level ();
 	
 	reg clk;
-	reg reset;
+	reg reset = 1'b0;
 	wire[7:0] oport;
 
 	computer cpu(
