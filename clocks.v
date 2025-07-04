@@ -11,7 +11,7 @@ module clocks(
     reg[2:0] cnt = 3'b100;
 
     always @(posedge clk) begin
-        if (~halt & ~reset) begin
+        if (~halt) begin
             {cycle_clock, ram_clock, internal_clock} <= cnt;
             case (cnt)
                 3'b100 : cnt <= 3'b010;

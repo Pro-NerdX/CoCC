@@ -23,7 +23,7 @@ module FSM (
         case (cycle)
             `T0: state <= `STATE_FETCH_PC;
             `T1: state <= `STATE_FETCH_INST;
-            
+
             `T2: case (opcode)
                 `OP_HLT:  state <= `STATE_HALT;
                 `OP_NOP:  state <= `STATE_NEXT;
@@ -44,6 +44,8 @@ module FSM (
                 // Dynamische Adressierung
                 `OP_LDA:  state <= `STATE_SET_MAR;
                 `OP_STA:  state <= `STATE_SET_MAR;
+
+                default: state <= `STATE_NEXT;
             endcase
 
             `T3: case (opcode)
@@ -63,6 +65,8 @@ module FSM (
                 // Dynamische Adressierung
                 `OP_LDA:  state <= `STATE_SET_REG;
                 `OP_STA:  state <= `STATE_SET_MEM;
+
+                default: state <= `STATE_NEXT;
             endcase
 
             `T4: case (opcode)
@@ -81,6 +85,8 @@ module FSM (
                 // Dynamische Adressierung
                 `OP_LDA:  state <= `STATE_NEXT;
                 `OP_STA:  state <= `STATE_NEXT;
+
+                default: state <= `STATE_NEXT;
             endcase
 
             `T5: case (opcode)
@@ -91,6 +97,8 @@ module FSM (
 
                 `OP_CALL: state <= `STATE_STORE_PC;
                 `OP_RET: state <= `STATE_NEXT;
+
+                default: state <= `STATE_NEXT;
             endcase
 
             `T6: state <= `STATE_TMP_JUMP;

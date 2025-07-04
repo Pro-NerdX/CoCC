@@ -13,8 +13,15 @@ module top_level ();
         .oport(oport)
     );
 
+    initial begin
+        $dumpfile("computer.vcd");
+        $dumpvars();
+
+        #1000000 $finish;
+    end
+
     // "test_bench"
-    always @(pc_mk5.c_halt) begin
+    always @(pc_mk2.c_halt) begin
         $display(
             "Registers:\nREG_A: %h\nREG_B: %h\nREG_C: %h\nREG_D: %h\nREG_E: %h\nREG_F: %h\nREG_G: %h\nREG_H: %h\n",
             pc_mk2.CPU_Register.registers[0],

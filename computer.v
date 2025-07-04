@@ -94,7 +94,7 @@ module computer (
         .c_da(c_da)
     );
 
-    wire[7:0] state = `STATE_NEXT;
+    wire[7:0] state;
 
     // Finite State Machine
     FSM FSM0(
