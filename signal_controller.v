@@ -17,7 +17,7 @@ module control (
     assign c_da = (state == `STATE_SET_MAR);
 
     // jump allowed
-    assign ja = (operand_2 == `JMP_JMP) |
+    assign ja =  (operand_2 == `JMP_JMP) |
                 ((operand_2 == `JMP_JC)  &  flag_carry) |
                 ((operand_2 == `JMP_JNC) & ~flag_carry) |
                 ((operand_2 == `JMP_JZ)  &  flag_zero)  |
@@ -38,15 +38,15 @@ module control (
                     (state == `STATE_RET);
 
     // CPU-Register
-    assign c_rfi =  (state == `STATE_ALU_OUT) |
-                    (state == `STATE_SET_REG) |
+    assign c_rfi =  (state == `STATE_ALU_OUT)  |
+                    (state == `STATE_SET_REG)  |
                     (state == `STATE_MOVE_REG) |
                     // was missing in our initial implementation
                     (state == `STATE_SET_REG);
-    assign c_rfo =  (state == `STATE_SET_MEM) |
-                    (state == `STATE_MOVE_REG) |
+    assign c_rfo =  (state == `STATE_SET_MEM)   |
+                    (state == `STATE_MOVE_REG)  |
                     (state == `STATE_STACK_REG) |
-                    (state == `STATE_TMP_JUMP) |
+                    (state == `STATE_TMP_JUMP)  |
                     /* IO-Schnittstelle */
                     (state == `STATE_ROUT_STORE);
 
@@ -55,29 +55,29 @@ module control (
     assign c_ee = (state == `STATE_ALU_EXEC);
 
     // MAR
-    assign c_mi =   (state == `STATE_FETCH_PC) |
+    assign c_mi =   (state == `STATE_FETCH_PC)  |
                     (state == `STATE_LOAD_ADDR) |
-                    (state == `STATE_FETCH_SP) |
+                    (state == `STATE_FETCH_SP)  |
                     // was missing in our initial implementation
                     (state == `STATE_SET_MAR);
 
     // RAM
     assign c_ri =   (state == `STATE_STORE_PC) |
-                    (state == `STATE_SET_MEM) |
+                    (state == `STATE_SET_MEM)  |
                     (state == `STATE_STACK_REG);
-    assign c_ro =   (state == `STATE_STORE_PC) |
-                    (state == `STATE_LOAD_ADDR) |
-                    (state == `STATE_SET_REG) |
+    assign c_ro =   (state == `STATE_STORE_PC)    |
+                    (state == `STATE_LOAD_ADDR)   |
+                    (state == `STATE_SET_REG)     |
                     ((state == `STATE_JUMP) & ja) |
-                    (state == `STATE_RET) |
+                    (state == `STATE_RET)         |
                     /* IO-Schnittstelle */
-                    (state == `STATE_MOUT_STORE) |
+                    (state == `STATE_MOUT_STORE)  |
                     // was missing
                     (state == `STATE_FETCH_INST);
 
     // SP
     assign c_si =   (state == `STATE_STACK_REG) |
-                    (state == `STATE_INC_SP) |
+                    (state == `STATE_INC_SP)    |
                     (state == `STATE_TMP_JUMP);
     assign c_so =   (state == `STATE_FETCH_SP);
     assign c_sd =   (state == `STATE_STACK_REG) |
