@@ -75,17 +75,8 @@
 // IO-Schnittstelle
 `define OP_MOUT 8'b00_000_101
 `define OP_ROUT 8'b01_110_000
-// Erweiterungen
-`define OP_SHL  8'b01_000_100
-`define OP_SHR  8'b01_001_100
-`define OP_ROL  8'b01_010_100
-`define OP_ROR  8'b01_011_100
-`define OP_NOT  8'b01_100_100
-`define OP_MLO  8'b01_101_100
-`define OP_MHI  8'b01_110_100
-`define OP_SQRT 8'b01_111_100
 // Dynamische Adressierung
-`define OP_LDA  8'b00_010_000
+`define OP_LDA  8'b00_100_000
 `define OP_STA  8'b00_101_000
 
 /* ALU-Modes */
