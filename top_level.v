@@ -5,7 +5,7 @@ module top_level ();
     wire[7:0] oport;
 
     always
-        #20 clk = ~clk;
+        #2 clk = ~clk;
 
     computer pc_mk2(
         .clk(clk),
@@ -17,7 +17,7 @@ module top_level ();
         $dumpfile("computer.vcd");
         $dumpvars();
 
-        #1000000 $finish;
+        #10000 $finish;
     end
 
     // "test_bench"
