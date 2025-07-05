@@ -5,7 +5,7 @@ module top_level ();
     wire[7:0] oport;
 
     always
-        #2 clk = ~clk;
+        #1 clk = ~clk;
 
     computer pc_mk2(
         .clk(clk),

@@ -38,7 +38,7 @@ module ALU (
             case (mode)
                 4'b0000: {flag_carry, r_out} <= in_a + in_b;                 // ALU_ADD
                 4'b0001: {flag_carry, r_out} <= in_a + in_b + flag_carry;    // ALU_ADC
-                4'b0010: {flag_carry, r_out} <= in_a - in_b - (~flag_carry); // ALU_SUB
+                4'b0010: {flag_carry, r_out} <= in_a - in_b;                 // ALU_SUB
                 4'b0011: {flag_carry, r_out} <= in_a + 1'b1;                 // ALU_INC
                 4'b0100: {flag_carry, r_out} <= {1'b0, in_a} - 1'b1;         // ALU_DEC
                 4'b0101: {flag_carry, r_out} <= {1'b0, in_a & in_b};         // ALU_AND
@@ -49,8 +49,8 @@ module ALU (
                 4'b1000: {flag_carry, r_out} <= {1'b0, in_a << in_b};                           // ALU_SHL
                 4'b1001: {flag_carry, r_out} <= {1'b0, in_a >> in_b};                           // ALU_SHR
                 4'b1010: {flag_carry, r_out} <= {1'b0, in_a[6:0],in_a[7]};  // ALU_ROL fixed: rotate left by 1
-                4'b1011: {flag_carry, r_out} <= {1'b0, in_a[0], in_a[7:1]};  // ALU_ROR TODO: Check for correctness
-                4'b1100: {flag_carry, r_out} <= {1'b0, ~in_a};                          // ALU_NOT
+                4'b1011: {flag_carry, r_out} <= {1'b0, in_a[0], in_a[7:1]}; // ALU_ROR TODO: Check for correctness
+                4'b1100: {flag_carry, r_out} <= {1'b0, ~in_a};                                  // ALU_NOT
 
                 4'b1101: {flag_carry, r_out} <= {carry, out_lo};  // ALU_MLO
                 4'b1110: {flag_carry, r_out} <= {carry, out_hi};  // ALU_MHI

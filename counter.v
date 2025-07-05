@@ -27,7 +27,7 @@ module counter (
         .out(out)
     );
 
-    always @(posedge clk or posedge reset) begin
+    always @(posedge clk) begin
         if (reset) begin
             r_out <= 8'b0;
         end else if (set) begin
